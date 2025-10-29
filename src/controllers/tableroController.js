@@ -1,6 +1,5 @@
 const Tablero = require('../models/tableroModel');
 
-// Obtener todos los tableros
 const obtenerTableros = async (req, res) => {
   try {
     const tableros = await Tablero.obtenerTodos();
@@ -10,7 +9,6 @@ const obtenerTableros = async (req, res) => {
   }
 };
 
-// Obtener tablero por ID
 const obtenerTableroPorId = async (req, res) => {
   try {
     const { id } = req.params;
@@ -26,7 +24,6 @@ const obtenerTableroPorId = async (req, res) => {
   }
 };
 
-// Obtener tablero completo con columnas y envíos
 const obtenerTableroCompleto = async (req, res) => {
   try {
     const { id } = req.params;
@@ -42,7 +39,6 @@ const obtenerTableroCompleto = async (req, res) => {
   }
 };
 
-// Crear nuevo tablero
 const crearTablero = async (req, res) => {
   try {
     const { titulo, descripcion, id_usuario } = req.body;
@@ -66,7 +62,6 @@ const crearTablero = async (req, res) => {
   }
 };
 
-// Actualizar tablero
 const actualizarTablero = async (req, res) => {
   try {
     const { id } = req.params;
@@ -91,7 +86,6 @@ const actualizarTablero = async (req, res) => {
   }
 };
 
-// Eliminar tablero
 const eliminarTablero = async (req, res) => {
   try {
     const { id } = req.params;
@@ -106,7 +100,6 @@ const eliminarTablero = async (req, res) => {
   }
 };
 
-// Obtener tableros por usuario
 const obtenerTablerosPorUsuario = async (req, res) => {
   try {
     const { id_usuario } = req.params;

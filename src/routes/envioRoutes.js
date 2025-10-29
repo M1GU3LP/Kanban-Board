@@ -15,7 +15,6 @@ const {
   obtenerEstadisticasEnvios
 } = require('../controllers/envioController');
 
-// Rutas para envíos
 router.get('/', obtenerEnvios);
 router.get('/estadisticas', obtenerEstadisticasEnvios);
 router.get('/proximos-vencer', obtenerEnviosProximosAVencer);
@@ -24,7 +23,6 @@ router.post('/', crearEnvio);
 router.put('/:id', actualizarEnvio);
 router.delete('/:id', eliminarEnvio);
 
-// Rutas específicas
 router.post('/:id/mover', moverEnvio);
 router.get('/columna/:id_columna', obtenerEnviosPorColumna);
 router.get('/usuario/:id_usuario', obtenerEnviosPorUsuario);

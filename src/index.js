@@ -1,17 +1,14 @@
 const express = require('express');
 const app = express();
 
-// Importar rutas
+const authRoutes = require('./routes/authRoutes');
 const usuarioRoutes = require('./routes/usuarioRoutes');
 const tableroRoutes = require('./routes/tableroRoutes');
 const columnaRoutes = require('./routes/columnaRoutes');
 const envioRoutes = require('./routes/envioRoutes');
 const reporteRoutes = require('./routes/reporteRoutes');
 
-// Middleware
 app.use(express.json());
-
-// Configurar CORS para desarrollo
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -23,14 +20,13 @@ app.use((req, res, next) => {
   }
 });
 
-// Rutas
+app.use('/auth', authRoutes);
 app.use('/usuarios', usuarioRoutes);
 app.use('/tableros', tableroRoutes);
 app.use('/columnas', columnaRoutes);
 app.use('/envios', envioRoutes);
 app.use('/reportes', reporteRoutes);
 
-// Ruta principal
 app.get('/', (req, res) => {
   res.json({
     mensaje: 'API Kanban operativa',
@@ -93,7 +89,6 @@ app.get('/', (req, res) => {
   });
 });
 
-// Manejo de errores
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ 
@@ -101,8 +96,6 @@ app.use((err, req, res, next) => {
     mensaje: err.message 
   });
 });
-
-// Manejo de rutas no encontradas
 app.use((req, res) => {
   res.status(404).json({ 
     error: 'Ruta no encontrada',

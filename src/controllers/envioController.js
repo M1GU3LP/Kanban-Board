@@ -1,7 +1,6 @@
 const Envio = require('../models/envioModel');
 const Columna = require('../models/columnaModel');
 
-// Obtener todos los envíos
 const obtenerEnvios = async (req, res) => {
   try {
     const envios = await Envio.obtenerTodos();
@@ -11,7 +10,6 @@ const obtenerEnvios = async (req, res) => {
   }
 };
 
-// Obtener envío por ID
 const obtenerEnvioPorId = async (req, res) => {
   try {
     const { id } = req.params;
@@ -27,7 +25,6 @@ const obtenerEnvioPorId = async (req, res) => {
   }
 };
 
-// Crear nuevo envío
 const crearEnvio = async (req, res) => {
   try {
     const { 
@@ -41,14 +38,12 @@ const crearEnvio = async (req, res) => {
       id_conductor 
     } = req.body;
 
-    // Validaciones
     if (!descripcion || !id_columna || !id_usuario) {
       return res.status(400).json({ 
         error: 'descripcion, id_columna e id_usuario son requeridos' 
       });
     }
 
-    // Validar prioridad
     const prioridadesPermitidas = ['alta', 'media', 'baja'];
     if (prioridad && !prioridadesPermitidas.includes(prioridad)) {
       return res.status(400).json({ 
@@ -56,7 +51,6 @@ const crearEnvio = async (req, res) => {
       });
     }
 
-    // Verificar límite WIP de la columna
     const wipCheck = await Columna.verificarWipLimit(id_columna);
     if (!wipCheck.puedeAgregar) {
       return res.status(400).json({ 

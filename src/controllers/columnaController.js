@@ -1,6 +1,5 @@
 const Columna = require('../models/columnaModel');
 
-// Obtener todas las columnas
 const obtenerColumnas = async (req, res) => {
   try {
     const columnas = await Columna.obtenerTodas();
@@ -10,7 +9,6 @@ const obtenerColumnas = async (req, res) => {
   }
 };
 
-// Obtener columna por ID
 const obtenerColumnaPorId = async (req, res) => {
   try {
     const { id } = req.params;
@@ -26,7 +24,6 @@ const obtenerColumnaPorId = async (req, res) => {
   }
 };
 
-// Crear nueva columna
 const crearColumna = async (req, res) => {
   try {
     const { nombre, orden, wip_limit, id_tablero } = req.body;
@@ -64,7 +61,6 @@ const crearColumna = async (req, res) => {
   }
 };
 
-// Actualizar columna
 const actualizarColumna = async (req, res) => {
   try {
     const { id } = req.params;
@@ -92,7 +88,6 @@ const actualizarColumna = async (req, res) => {
   }
 };
 
-// Eliminar columna
 const eliminarColumna = async (req, res) => {
   try {
     const { id } = req.params;
@@ -107,7 +102,6 @@ const eliminarColumna = async (req, res) => {
   }
 };
 
-// Obtener columnas por tablero
 const obtenerColumnasPorTablero = async (req, res) => {
   try {
     const { id_tablero } = req.params;
@@ -119,7 +113,6 @@ const obtenerColumnasPorTablero = async (req, res) => {
   }
 };
 
-// Obtener columnas con envíos
 const obtenerColumnasConEnvios = async (req, res) => {
   try {
     const { id_tablero } = req.params;
@@ -131,7 +124,6 @@ const obtenerColumnasConEnvios = async (req, res) => {
   }
 };
 
-// Verificar límite WIP
 const verificarWipLimit = async (req, res) => {
   try {
     const { id } = req.params;
