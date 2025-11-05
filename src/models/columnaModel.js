@@ -1,7 +1,7 @@
 const conexion = require('../config/db');
 
 const Columna = {
-  // Obtener todas las columnas
+  
   obtenerTodas: () => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -17,7 +17,7 @@ const Columna = {
     });
   },
 
-  // Obtener columna por ID
+  
   obtenerPorId: (id) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -33,7 +33,7 @@ const Columna = {
     });
   },
 
-  // Crear nueva columna
+
   crear: (datos) => {
     return new Promise((resolve, reject) => {
       const { nombre, orden, wip_limit, id_tablero } = datos;
@@ -48,7 +48,7 @@ const Columna = {
     });
   },
 
-  // Actualizar columna
+  
   actualizar: (id, datos) => {
     return new Promise((resolve, reject) => {
       const { nombre, orden, wip_limit } = datos;
@@ -64,7 +64,7 @@ const Columna = {
     });
   },
 
-  // Eliminar columna
+  
   eliminar: (id) => {
     return new Promise((resolve, reject) => {
       const sql = 'DELETE FROM Columna WHERE id_columna = ?';
@@ -75,7 +75,7 @@ const Columna = {
     });
   },
 
-  // Obtener columnas por tablero
+  
   obtenerPorTablero: (id_tablero) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -96,7 +96,7 @@ const Columna = {
     });
   },
 
-  // Obtener columnas con envíos
+  
   obtenerConEnvios: (id_tablero) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -124,7 +124,7 @@ const Columna = {
       conexion.query(sql, [id_tablero], (err, resultados) => {
         if (err) reject(err);
         else {
-          // Organizar los datos en estructura de columnas con envíos
+          
           const columnasMap = new Map();
           
           resultados.forEach(row => {
@@ -161,7 +161,7 @@ const Columna = {
     });
   },
 
-  // Verificar límite WIP
+  
   verificarWipLimit: (id_columna) => {
     return new Promise((resolve, reject) => {
       const sql = `

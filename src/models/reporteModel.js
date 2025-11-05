@@ -1,7 +1,7 @@
 const conexion = require('../config/db');
 
 const Reporte = {
-  // Obtener todos los reportes
+  
   obtenerTodos: () => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -24,7 +24,7 @@ const Reporte = {
     });
   },
 
-  // Obtener reporte por ID
+  
   obtenerPorId: (id) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -47,7 +47,7 @@ const Reporte = {
     });
   },
 
-  // Crear nuevo reporte
+  
   crear: (datos) => {
     return new Promise((resolve, reject) => {
       const { tipo, descripcion, id_envio, id_usuario } = datos;
@@ -62,7 +62,7 @@ const Reporte = {
     });
   },
 
-  // Actualizar reporte
+ 
   actualizar: (id, datos) => {
     return new Promise((resolve, reject) => {
       const { tipo, descripcion } = datos;
@@ -78,7 +78,7 @@ const Reporte = {
     });
   },
 
-  // Eliminar reporte
+ 
   eliminar: (id) => {
     return new Promise((resolve, reject) => {
       const sql = 'DELETE FROM Reporte WHERE id_reporte = ?';
@@ -89,7 +89,7 @@ const Reporte = {
     });
   },
 
-  // Obtener reportes por envío
+  
   obtenerPorEnvio: (id_envio) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -106,7 +106,7 @@ const Reporte = {
     });
   },
 
-  // Obtener reportes por usuario
+  
   obtenerPorUsuario: (id_usuario) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -128,7 +128,7 @@ const Reporte = {
     });
   },
 
-  // Obtener reportes por tipo
+  
   obtenerPorTipo: (tipo) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -152,7 +152,7 @@ const Reporte = {
     });
   },
 
-  // Obtener reportes por rango de fechas
+ 
   obtenerPorFechas: (fecha_inicio, fecha_fin) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -176,7 +176,7 @@ const Reporte = {
     });
   },
 
-  // Obtener estadísticas de reportes
+  
   obtenerEstadisticas: () => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -197,7 +197,7 @@ const Reporte = {
     });
   },
 
-  // Obtener reportes recientes (últimos N días)
+  
   obtenerRecientes: (dias = 7) => {
     return new Promise((resolve, reject) => {
       const sql = `

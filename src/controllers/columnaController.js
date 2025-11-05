@@ -28,14 +28,14 @@ const crearColumna = async (req, res) => {
   try {
     const { nombre, orden, wip_limit, id_tablero } = req.body;
 
-    // Validaciones
+    
     if (!nombre || !id_tablero) {
       return res.status(400).json({ 
         error: 'nombre e id_tablero son requeridos' 
       });
     }
 
-    // Validar que el nombre sea uno de los permitidos
+    
     const nombresPermitidos = ['recepción', 'clasificación', 'ruta', 'entregado', 'incidencia'];
     if (!nombresPermitidos.includes(nombre)) {
       return res.status(400).json({ 
@@ -66,7 +66,7 @@ const actualizarColumna = async (req, res) => {
     const { id } = req.params;
     const { nombre, orden, wip_limit } = req.body;
 
-    // Validaciones
+    
     if (nombre) {
       const nombresPermitidos = ['recepción', 'clasificación', 'ruta', 'entregado', 'incidencia'];
       if (!nombresPermitidos.includes(nombre)) {

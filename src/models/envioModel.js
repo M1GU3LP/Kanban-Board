@@ -1,7 +1,7 @@
 const conexion = require('../config/db');
 
 const Envio = {
-  // Obtener todos los envíos
+  
   obtenerTodos: () => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -25,7 +25,7 @@ const Envio = {
     });
   },
 
-  // Obtener envío por ID
+  
   obtenerPorId: (id) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -49,7 +49,7 @@ const Envio = {
     });
   },
 
-  // Crear nuevo envío
+  
   crear: (datos) => {
     return new Promise((resolve, reject) => {
       const { descripcion, peso, dimensiones, fecha_estimada_entrega, prioridad, id_columna, id_usuario, id_conductor } = datos;
@@ -64,7 +64,7 @@ const Envio = {
     });
   },
 
-  // Actualizar envío
+  
   actualizar: (id, datos) => {
     return new Promise((resolve, reject) => {
       const { descripcion, peso, dimensiones, fecha_estimada_entrega, prioridad, id_conductor } = datos;
@@ -80,7 +80,7 @@ const Envio = {
     });
   },
 
-  // Eliminar envío
+  
   eliminar: (id) => {
     return new Promise((resolve, reject) => {
       const sql = 'DELETE FROM Envio WHERE id_envio = ?';
@@ -91,7 +91,7 @@ const Envio = {
     });
   },
 
-  // Mover envío a otra columna
+ 
   moverAColumna: (id_envio, id_columna) => {
     return new Promise((resolve, reject) => {
       const sql = 'UPDATE Envio SET id_columna = ? WHERE id_envio = ?';
@@ -102,7 +102,7 @@ const Envio = {
     });
   },
 
-  // Obtener envíos por columna
+  
   obtenerPorColumna: (id_columna) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -122,7 +122,7 @@ const Envio = {
     });
   },
 
-  // Obtener envíos por usuario
+  
   obtenerPorUsuario: (id_usuario) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -144,7 +144,7 @@ const Envio = {
     });
   },
 
-  // Obtener envíos por conductor
+  
   obtenerPorConductor: (id_conductor) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -166,7 +166,7 @@ const Envio = {
     });
   },
 
-  // Obtener envíos por prioridad
+
   obtenerPorPrioridad: (prioridad) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -190,7 +190,7 @@ const Envio = {
     });
   },
 
-  // Obtener envíos próximos a vencer
+  
   obtenerProximosAVencer: (dias = 7) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -216,7 +216,7 @@ const Envio = {
     });
   },
 
-  // Obtener estadísticas de envíos
+  
   obtenerEstadisticas: () => {
     return new Promise((resolve, reject) => {
       const sql = `

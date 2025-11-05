@@ -1,7 +1,7 @@
 const conexion = require('../config/db');
 
 const Tablero = {
-  // Obtener todos los tableros
+  
   obtenerTodos: () => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -17,7 +17,7 @@ const Tablero = {
     });
   },
 
-  // Obtener tablero por ID
+  
   obtenerPorId: (id) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -33,7 +33,7 @@ const Tablero = {
     });
   },
 
-  // Crear nuevo tablero
+  
   crear: (datos) => {
     return new Promise((resolve, reject) => {
       const { titulo, descripcion, id_usuario } = datos;
@@ -48,7 +48,7 @@ const Tablero = {
     });
   },
 
-  // Actualizar tablero
+  
   actualizar: (id, datos) => {
     return new Promise((resolve, reject) => {
       const { titulo, descripcion } = datos;
@@ -64,7 +64,7 @@ const Tablero = {
     });
   },
 
-  // Eliminar tablero
+  
   eliminar: (id) => {
     return new Promise((resolve, reject) => {
       const sql = 'DELETE FROM Tablero WHERE id_tablero = ?';
@@ -75,7 +75,7 @@ const Tablero = {
     });
   },
 
-  // Obtener tableros por usuario
+  
   obtenerPorUsuario: (id_usuario) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -92,7 +92,7 @@ const Tablero = {
     });
   },
 
-  // Obtener tablero completo con columnas y envíos
+  
   obtenerCompleto: (id) => {
     return new Promise((resolve, reject) => {
       const sql = `
@@ -125,7 +125,7 @@ const Tablero = {
       conexion.query(sql, [id], (err, resultados) => {
         if (err) reject(err);
         else {
-          // Organizar los datos en estructura de tablero
+          
           const tablero = {
             id_tablero: resultados[0]?.id_tablero,
             titulo: resultados[0]?.titulo,

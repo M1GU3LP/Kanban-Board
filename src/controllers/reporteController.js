@@ -1,6 +1,6 @@
 const Reporte = require('../models/reporteModel');
 
-// Obtener todos los reportes
+
 const obtenerReportes = async (req, res) => {
   try {
     const reportes = await Reporte.obtenerTodos();
@@ -10,7 +10,7 @@ const obtenerReportes = async (req, res) => {
   }
 };
 
-// Obtener reporte por ID
+
 const obtenerReportePorId = async (req, res) => {
   try {
     const { id } = req.params;
@@ -26,19 +26,19 @@ const obtenerReportePorId = async (req, res) => {
   }
 };
 
-// Crear nuevo reporte
+
 const crearReporte = async (req, res) => {
   try {
     const { tipo, descripcion, id_envio, id_usuario } = req.body;
 
-    // Validaciones
+    
     if (!tipo || !descripcion || !id_envio || !id_usuario) {
       return res.status(400).json({ 
         error: 'tipo, descripcion, id_envio e id_usuario son requeridos' 
       });
     }
 
-    // Validar tipo de reporte
+    
     const tiposPermitidos = ['tiempo', 'retraso', 'incidente', 'devolucion'];
     if (!tiposPermitidos.includes(tipo)) {
       return res.status(400).json({ 
@@ -58,13 +58,13 @@ const crearReporte = async (req, res) => {
   }
 };
 
-// Actualizar reporte
+
 const actualizarReporte = async (req, res) => {
   try {
     const { id } = req.params;
     const { tipo, descripcion } = req.body;
 
-    // Validar tipo si se proporciona
+    
     if (tipo) {
       const tiposPermitidos = ['tiempo', 'retraso', 'incidente', 'devolucion'];
       if (!tiposPermitidos.includes(tipo)) {
@@ -86,7 +86,7 @@ const actualizarReporte = async (req, res) => {
   }
 };
 
-// Eliminar reporte
+
 const eliminarReporte = async (req, res) => {
   try {
     const { id } = req.params;
@@ -101,7 +101,7 @@ const eliminarReporte = async (req, res) => {
   }
 };
 
-// Obtener reportes por envío
+
 const obtenerReportesPorEnvio = async (req, res) => {
   try {
     const { id_envio } = req.params;
@@ -113,7 +113,6 @@ const obtenerReportesPorEnvio = async (req, res) => {
   }
 };
 
-// Obtener reportes por usuario
 const obtenerReportesPorUsuario = async (req, res) => {
   try {
     const { id_usuario } = req.params;
@@ -125,7 +124,7 @@ const obtenerReportesPorUsuario = async (req, res) => {
   }
 };
 
-// Obtener reportes por tipo
+
 const obtenerReportesPorTipo = async (req, res) => {
   try {
     const { tipo } = req.params;
@@ -137,7 +136,7 @@ const obtenerReportesPorTipo = async (req, res) => {
   }
 };
 
-// Obtener reportes por rango de fechas
+
 const obtenerReportesPorFechas = async (req, res) => {
   try {
     const { fecha_inicio, fecha_fin } = req.query;
@@ -155,7 +154,7 @@ const obtenerReportesPorFechas = async (req, res) => {
   }
 };
 
-// Obtener reportes recientes
+
 const obtenerReportesRecientes = async (req, res) => {
   try {
     const { dias } = req.query;
@@ -168,7 +167,7 @@ const obtenerReportesRecientes = async (req, res) => {
   }
 };
 
-// Obtener estadísticas de reportes
+
 const obtenerEstadisticasReportes = async (req, res) => {
   try {
     const estadisticas = await Reporte.obtenerEstadisticas();

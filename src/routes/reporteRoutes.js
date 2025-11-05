@@ -14,7 +14,7 @@ const {
   obtenerEstadisticasReportes
 } = require('../controllers/reporteController');
 
-// Rutas para reportes
+
 router.get('/', obtenerReportes);
 router.get('/estadisticas', obtenerEstadisticasReportes);
 router.get('/recientes', obtenerReportesRecientes);
@@ -24,7 +24,7 @@ router.post('/', crearReporte);
 router.put('/:id', actualizarReporte);
 router.delete('/:id', eliminarReporte);
 
-// Rutas específicas
+
 router.get('/envio/:id_envio', obtenerReportesPorEnvio);
 router.get('/usuario/:id_usuario', obtenerReportesPorUsuario);
 router.get('/tipo/:tipo', obtenerReportesPorTipo);

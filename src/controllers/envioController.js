@@ -80,7 +80,7 @@ const crearEnvio = async (req, res) => {
   }
 };
 
-// Actualizar envío
+
 const actualizarEnvio = async (req, res) => {
   try {
     const { id } = req.params;
@@ -93,7 +93,7 @@ const actualizarEnvio = async (req, res) => {
       id_conductor 
     } = req.body;
 
-    // Validar prioridad si se proporciona
+    
     if (prioridad) {
       const prioridadesPermitidas = ['alta', 'media', 'baja'];
       if (!prioridadesPermitidas.includes(prioridad)) {
@@ -123,7 +123,7 @@ const actualizarEnvio = async (req, res) => {
   }
 };
 
-// Eliminar envío
+
 const eliminarEnvio = async (req, res) => {
   try {
     const { id } = req.params;
@@ -138,7 +138,7 @@ const eliminarEnvio = async (req, res) => {
   }
 };
 
-// Mover envío a otra columna
+
 const moverEnvio = async (req, res) => {
   try {
     const { id } = req.params;
@@ -148,7 +148,7 @@ const moverEnvio = async (req, res) => {
       return res.status(400).json({ error: 'id_columna es requerido' });
     }
 
-    // Verificar límite WIP de la columna destino
+    
     const wipCheck = await Columna.verificarWipLimit(id_columna);
     if (!wipCheck.puedeAgregar) {
       return res.status(400).json({ 
@@ -167,7 +167,7 @@ const moverEnvio = async (req, res) => {
   }
 };
 
-// Obtener envíos por columna
+
 const obtenerEnviosPorColumna = async (req, res) => {
   try {
     const { id_columna } = req.params;
@@ -179,7 +179,7 @@ const obtenerEnviosPorColumna = async (req, res) => {
   }
 };
 
-// Obtener envíos por usuario
+
 const obtenerEnviosPorUsuario = async (req, res) => {
   try {
     const { id_usuario } = req.params;
@@ -191,7 +191,7 @@ const obtenerEnviosPorUsuario = async (req, res) => {
   }
 };
 
-// Obtener envíos por conductor
+
 const obtenerEnviosPorConductor = async (req, res) => {
   try {
     const { id_conductor } = req.params;
@@ -203,7 +203,7 @@ const obtenerEnviosPorConductor = async (req, res) => {
   }
 };
 
-// Obtener envíos por prioridad
+
 const obtenerEnviosPorPrioridad = async (req, res) => {
   try {
     const { prioridad } = req.params;
@@ -215,7 +215,7 @@ const obtenerEnviosPorPrioridad = async (req, res) => {
   }
 };
 
-// Obtener envíos próximos a vencer
+
 const obtenerEnviosProximosAVencer = async (req, res) => {
   try {
     const { dias } = req.query;
@@ -228,7 +228,7 @@ const obtenerEnviosProximosAVencer = async (req, res) => {
   }
 };
 
-// Obtener estadísticas de envíos
+
 const obtenerEstadisticasEnvios = async (req, res) => {
   try {
     const estadisticas = await Envio.obtenerEstadisticas();

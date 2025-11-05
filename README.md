@@ -11,7 +11,7 @@ Para dar respuesta a estas necesidades y facilitar la coordinación en entornos 
 
 Tecnologias:
 -Entorno:Visual Studio Code
--Base de datos:Por confirmar
+-Base de datos:MySQL
 -Librerias: Node.js ,React
 
 Área:

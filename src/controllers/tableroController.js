@@ -67,7 +67,7 @@ const actualizarTablero = async (req, res) => {
     const { id } = req.params;
     const { titulo, descripcion } = req.body;
 
-    // Validaciones
+  
     if (!titulo || !descripcion) {
       return res.status(400).json({ 
         error: 'titulo y descripcion son requeridos' 
