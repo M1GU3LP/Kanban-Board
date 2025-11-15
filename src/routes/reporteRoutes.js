@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
 const {
   obtenerReportes,
   obtenerReportePorId,
@@ -20,7 +21,7 @@ router.get('/estadisticas', obtenerEstadisticasReportes);
 router.get('/recientes', obtenerReportesRecientes);
 router.get('/por-fechas', obtenerReportesPorFechas);
 router.get('/:id', obtenerReportePorId);
-router.post('/', crearReporte);
+router.post('/', auth, crearReporte);
 router.put('/:id', actualizarReporte);
 router.delete('/:id', eliminarReporte);
 
@@ -30,4 +31,6 @@ router.get('/usuario/:id_usuario', obtenerReportesPorUsuario);
 router.get('/tipo/:tipo', obtenerReportesPorTipo);
 
 module.exports = router;
+
+
 

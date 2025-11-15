@@ -29,14 +29,20 @@ const obtenerReportePorId = async (req, res) => {
 
 const crearReporte = async (req, res) => {
   try {
+    if (!req.usuario) {
+      return res.status(401).json({ error: 'No autenticado' });
+    }
+
     const { tipo, descripcion, id_envio, id_usuario } = req.body;
 
-    
-    if (!tipo || !descripcion || !id_envio || !id_usuario) {
+    if (!tipo || !descripcion || !id_envio) {
       return res.status(400).json({ 
-        error: 'tipo, descripcion, id_envio e id_usuario son requeridos' 
+        error: 'tipo, descripcion e id_envio son requeridos' 
       });
     }
+
+    // Usar el id_usuario del token si no se proporciona
+    const usuarioId = id_usuario || req.usuario.id;
 
     
     const tiposPermitidos = ['tiempo', 'retraso', 'incidente', 'devolucion'];
@@ -46,7 +52,7 @@ const crearReporte = async (req, res) => {
       });
     }
 
-    const datosReporte = { tipo, descripcion, id_envio, id_usuario };
+    const datosReporte = { tipo, descripcion, id_envio, id_usuario: usuarioId };
     const nuevoReporte = await Reporte.crear(datosReporte);
     
     res.status(201).json({

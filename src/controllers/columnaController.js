@@ -116,10 +116,90 @@ const obtenerColumnasPorTablero = async (req, res) => {
 const obtenerColumnasConEnvios = async (req, res) => {
   try {
     const { id_tablero } = req.params;
-    const columnas = await Columna.obtenerConEnvios(id_tablero);
+    console.log(`Obteniendo columnas para tablero ${id_tablero}`);
     
-    res.json(columnas);
+    let columnas = await Columna.obtenerConEnvios(id_tablero);
+    console.log(`Columnas obtenidas de BD: ${columnas.length}`);
+    
+    // Asegurar que siempre existan las 5 columnas requeridas
+    const columnasRequeridas = [
+      { nombre: 'recepción', orden: 1 },
+      { nombre: 'clasificación', orden: 2 },
+      { nombre: 'ruta', orden: 3 },
+      { nombre: 'entregado', orden: 4 },
+      { nombre: 'incidencia', orden: 5 }
+    ];
+
+    const nombresExistentes = columnas.map(c => c.nombre ? c.nombre.toLowerCase().trim() : '');
+    console.log(`Nombres existentes:`, nombresExistentes);
+    
+    // Crear las columnas que faltan
+    let columnasCreadas = false;
+    for (const columnaReq of columnasRequeridas) {
+      const nombreNormalizado = columnaReq.nombre.toLowerCase().trim();
+      if (!nombresExistentes.includes(nombreNormalizado)) {
+        console.log(`Creando columna faltante: ${columnaReq.nombre} para tablero ${id_tablero}`);
+        try {
+          const nuevaColumna = await Columna.crear({
+            nombre: columnaReq.nombre,
+            orden: columnaReq.orden,
+            wip_limit: null,
+            id_tablero: parseInt(id_tablero)
+          });
+          console.log(`Columna ${columnaReq.nombre} creada con ID: ${nuevaColumna.id_columna}`);
+          columnasCreadas = true;
+        } catch (err) {
+          console.error(`Error al crear columna ${columnaReq.nombre}:`, err.message);
+          console.error('Stack:', err.stack);
+        }
+      }
+    }
+    
+    // Obtener las columnas nuevamente después de crear las faltantes
+    if (columnasCreadas) {
+      console.log('Recargando columnas después de crear nuevas...');
+      columnas = await Columna.obtenerConEnvios(id_tablero);
+      console.log(`Columnas después de crear: ${columnas.length}`);
+    }
+    
+    // Asegurar que siempre tengamos las 5 columnas requeridas en la respuesta
+    const columnasMap = new Map();
+    columnas.forEach(col => {
+      if (col.nombre) {
+        const nombreKey = col.nombre.toLowerCase().trim();
+        columnasMap.set(nombreKey, col);
+        console.log(`Mapeando columna: ${col.nombre} -> ${nombreKey}, id: ${col.id_columna}`);
+      }
+    });
+    
+    // Crear array final con las 5 columnas requeridas
+    const columnasFinales = columnasRequeridas.map(colReq => {
+      const nombreNormalizado = colReq.nombre.toLowerCase().trim();
+      const colExistente = columnasMap.get(nombreNormalizado);
+      if (colExistente) {
+        return colExistente;
+      } else {
+        // Si aún no existe, devolver una estructura básica
+        console.log(`Columna ${colReq.nombre} no encontrada, usando estructura básica`);
+        return {
+          id_columna: null,
+          nombre: colReq.nombre,
+          orden: colReq.orden,
+          wip_limit: null,
+          envios: []
+        };
+      }
+    });
+    
+    // Ordenar por orden para asegurar el orden correcto
+    columnasFinales.sort((a, b) => (a.orden || 0) - (b.orden || 0));
+    
+    console.log(`Devolviendo ${columnasFinales.length} columnas para tablero ${id_tablero}`);
+    console.log(`IDs de columnas:`, columnasFinales.map(c => `${c.nombre}:${c.id_columna}`).join(', '));
+    res.json(columnasFinales);
   } catch (error) {
+    console.error('Error en obtenerColumnasConEnvios:', error);
+    console.error('Stack:', error.stack);
     res.status(500).json({ error: 'Error al obtener columnas con envíos', detalles: error.message });
   }
 };

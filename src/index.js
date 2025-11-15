@@ -10,9 +10,18 @@ const reporteRoutes = require('./routes/reporteRoutes');
 
 app.use(express.json());
 app.use((req, res, next) => {
+  // Basic CORS headers
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  // Allow common headers plus the custom x-auth-token
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, x-auth-token');
+
+  // Simple request logging to help debug 'Failed to fetch' from the frontend
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl} - headers:`, {
+    origin: req.headers.origin,
+    'x-auth-token': req.headers['x-auth-token'] ? 'present' : 'absent',
+    authorization: req.headers.authorization ? 'present' : 'absent'
+  });
   if (req.method === 'OPTIONS') {
     res.sendStatus(200);
   } else {
@@ -103,7 +112,8 @@ app.use((req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
+// Use 3001 as the default backend port to avoid colliding with CRA dev-server on 3000
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log('🚀 Servidor corriendo en http://localhost:' + PORT);
   console.log('📋 API Kanban operativa');

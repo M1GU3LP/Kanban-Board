@@ -5,7 +5,7 @@ const Usuario = {
   obtenerTodos: () => {
     return new Promise((resolve, reject) => {
       const sql = `
-        SELECT id_usuario, nombre, email, rol, fecha_registro, ultima_conexion 
+        SELECT id_usuario, nombre, email, rol, fecha_registro 
         FROM Usuario
       `;
       conexion.query(sql, (err, resultados) => {
@@ -19,7 +19,7 @@ const Usuario = {
   obtenerPorId: (id) => {
     return new Promise((resolve, reject) => {
       const sql = `
-        SELECT id_usuario, nombre, email, rol, fecha_registro, ultima_conexion 
+        SELECT id_usuario, nombre, email, rol, fecha_registro 
         FROM Usuario 
         WHERE id_usuario = ?
       `;

@@ -1,4 +1,5 @@
 const Tablero = require('../models/tableroModel');
+const Columna = require('../models/columnaModel');
 
 const obtenerTableros = async (req, res) => {
   try {
@@ -43,7 +44,6 @@ const crearTablero = async (req, res) => {
   try {
     const { titulo, descripcion, id_usuario } = req.body;
 
-    // Validaciones
     if (!titulo || !descripcion || !id_usuario) {
       return res.status(400).json({ 
         error: 'titulo, descripcion e id_usuario son requeridos' 
@@ -52,6 +52,23 @@ const crearTablero = async (req, res) => {
 
     const datosTablero = { titulo, descripcion, id_usuario };
     const nuevoTablero = await Tablero.crear(datosTablero);
+    
+    // Crear las 5 columnas por defecto
+    const columnasDefault = [
+      { nombre: 'recepción', orden: 1 },
+      { nombre: 'clasificación', orden: 2 },
+      { nombre: 'ruta', orden: 3 },
+      { nombre: 'entregado', orden: 4 },
+      { nombre: 'incidencia', orden: 5 }
+    ];
+
+    for (const columna of columnasDefault) {
+      await Columna.crear({
+        ...columna,
+        wip_limit: null,
+        id_tablero: nuevoTablero.id_tablero
+      });
+    }
     
     res.status(201).json({
       mensaje: 'Tablero creado exitosamente',

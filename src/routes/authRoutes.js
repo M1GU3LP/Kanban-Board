@@ -65,12 +65,15 @@ router.get('/usuario', auth, async (req, res) => {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
     
-    
-    delete usuario.contraseña_hash;
+    // El modelo ya no devuelve contraseña_hash, pero por si acaso
+    if (usuario.contraseña_hash) {
+      delete usuario.contraseña_hash;
+    }
     res.json(usuario);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ error: 'Error en el servidor' });
+    console.error('Error en /auth/usuario:', err);
+    console.error('Stack:', err.stack);
+    res.status(500).json({ error: 'Error en el servidor', detalles: err.message });
   }
 });
 
